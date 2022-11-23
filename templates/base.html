@@ -3,44 +3,35 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <title>{{ title }}</title>
+  {% block style %} {% endblock %}
   <style>
     body {
-      background-image: url("https://www.techtarget.com/rms/onlineimages/keys_a280346470.jpg");
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-attachment: fixed;
-      background-size: cover;
+      background: #1d1e30;
     }
 
-    .custom-container {
-      color: white;
-      background-color: rgba(0, 0, 0, 0.5);
-      box-shadow: 0px 0px 20px -10px;
-      border-radius: 1.5rem;
-      margin: 1rem;
+    .custom-nav {
+      background-color: #322f56;
     }
 
-    .custom-block {
-      color: white;
-      background-color: rgba(0, 0, 0);
-      box-shadow: 0px 0px 20px -10px;
-      border-radius: 1.5rem;
-      margin: 1rem;
+    .loginsignup-btn {
+      border-color: #5261a2;
+    }
+
+    .loginsignup-btn:hover {
+      background-color: #5261a2 !important;
+      transition: 0.7s;
     }
   </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark custom-nav">
     <div class="container-fluid">
       <a class="navbar-brand" href="/"><b>Password Manager</b></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -65,16 +56,17 @@
         <div class="dropdown">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
             data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="text-white" style="margin: 0"><b>{{user.name}}</b></span>
+            <span class="text-white m-0"><b>{{user.name}}</b></span>
           </button>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-            <li>
-              <a class="dropdown-item" href="/logout">Logout</a>
+            <li class="m-0">
+              <a class="dropdown-item m-0 w-25" href="/logout">Logout</a>
             </li>
           </ul>
         </div>
         {% else %}
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginsigmup">
+        <button type="button" class="btn text-white loginsignup-btn rounded-pill" data-bs-toggle="modal"
+          data-bs-target="#loginsigmup">
           Login/Signup
         </button>
         {% endif %}
@@ -153,7 +145,7 @@
                   <span class="text-danger" id="signup-confirm-password-val">
                   </span>
                 </div>
-                <span class="text-danger" id="signup-cred-val" style="margin-bottom: 1rem; padding-left: 1rem">
+                <span class="text-danger mb-1" id="signup-cred-val" style="padding-left: 1rem">
                 </span>
                 <div class="d-grid gap-2 col-6 mx-auto">
                   <button class="btn btn-primary" id="signup-submit">
@@ -168,6 +160,9 @@
     </div>
   </div>
   {% block content %} {% endblock %}
+  {% block script %} {% endblock %}
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>

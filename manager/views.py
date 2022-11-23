@@ -35,7 +35,10 @@ def home(request):
 
 
 def generator(request):
-  return render(request, "generator.html")
+  data = {}
+  data["generator"] = "active"
+  data["title"] = "Generator | Password Manager"
+  return render(request, "generator.html", data)
 
 
 def dashboard(request):

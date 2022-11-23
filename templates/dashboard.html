@@ -1,5 +1,33 @@
 {% extends "base.html" %}
 
+{% block style %}
+<style>
+  body {
+    background-image: url("https://www.techtarget.com/rms/onlineimages/keys_a280346470.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  .custom-container {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 20px -10px;
+    border-radius: 1.5rem;
+    margin: 1rem;
+  }
+
+  .custom-block {
+    color: white;
+    background-color: rgba(0, 0, 0);
+    box-shadow: 0px 0px 20px -10px;
+    border-radius: 1.5rem;
+    margin: 1rem;
+  }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container">
   <div class="card custom-block">
@@ -32,6 +60,9 @@
   </div>
   {% endfor %}
 </div>
+{% endblock %}
+
+{% block script %}
 <script>
   copy = (element) => {
     navigator.clipboard.writeText(document.getElementById(element).innerHTML);

@@ -1,0 +1,12 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#pass_box{
+    width: 90%;
+    margin: 25% 4%;
+}
+.Display{
+    justify-content: left;
+    width: 86%;
+}

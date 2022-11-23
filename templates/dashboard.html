@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="card custom-block">
+    <div class="card-body">
+      <div class="row text-white">
+        <div class="col text-center">
+          <h3>Your Passwords </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% for i in passwords %}
+  <div class="card custom-container">
+    <div class="card-body" style="padding-bottom: 0;">
+      <div class="row text-white">
+        <div class="col">
+          <span>{{i.name}}</span>
+        </div>
+        <div class="col">
+          <div class="input-group mb-3">
+            <span class="form-control text-white" id="{{i.index}}"
+              style="background-color: rgb(209 255 220 / 0%); border: 0;">{{i.password}}</span>
+            <button class="btn btn-secondary btn-sm input-group-text" style="padding: 1%; padding-bottom: 0;background-color: rgb(202 215 206 / 0%);
+    border: 0;" type="button" data-target="{{i.index}}" onclick="copy(this.getAttribute('data-target'))"><i
+                class="material-icons">content_copy</i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<script>
+  copy = (element) => {
+    navigator.clipboard.writeText(document.getElementById(element).innerHTML);
+  }
+</script>
+{% endblock %}

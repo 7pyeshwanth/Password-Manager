@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<p>
+  <h3>Wellcome to Password Manager</h3>
+  <p>Hello {{name}},</p>
+  <p>Please confirm your email by clicking on the following link.</p>
+  <p>Confirmation Link: <b>http://{{ domain }}{% url 'activate' uidb64=uid token=token %}</b></p>
+  <p>Thank You </p>
+  <p>Note: This is a system generated automated e-mail If you did not created an account please ignore. </p>
+  </script>
+</body>
+
+</html>

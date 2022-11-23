@@ -1,0 +1,220 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'generator-cs.css' %}">
+  <link rel="stylesheet" media="screen and (max-width: 545px)" href="{% static 'phone.css' %}">
+  <title>Generator | Password Manager</title>
+  <style>
+    body {
+      background-image: url("https://www.techtarget.com/rms/onlineimages/keys_a280346470.jpg");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+
+    #pass-change {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/"><b>Password Manager</b></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/dashboard">Dashboard</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link active" href="/generator">Generator</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+          </li>
+        </ul>
+        {% if user.is_authenticated %}
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="text-white" style="margin: 0;"><b>{{user.name}}</b></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+            <li>
+              <a class="dropdown-item" href="/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+        {% else %}
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+          data-bs-target="#loginsigmup">Login/Signup</button>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  <div class="modal fade" id="loginsigmup" tabindex="-1" aria-labelledby="loginsigmupLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title " id="loginsigmupLabel">Password Manager</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body costom-model">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button"
+                role="tab" aria-controls="login" aria-selected="true">Login</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="signup-tab" data-bs-toggle="tab" data-bs-target="#signup" type="button"
+                role="tab" aria-controls="signup" aria-selected="false">Signup</button>
+            </li>
+          </ul>
+          <div class="tab-content costom-tab" id="myTabContent">
+            <div class="tab-pane fade show active costom-pane" id="login" role="tabpanel" aria-labelledby="login-tab">
+              <form id="login-form">
+                {% csrf_token %}
+                <div class="form-floating costom-form">
+                  <input type="email" class="form-control" id="login-email" placeholder="Email" required>
+                  <label for="login-email">Email Address</label>
+                  <span class="text-danger" id="login-email-val">
+                  </span>
+                </div>
+                <div class="form-floating costom-form">
+                  <input type="password" class="form-control" id="login-password" placeholder="Password"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*]).{8,32}" required>
+                  <label for="login-password">Password</label>
+                  <span class="text-danger" id="login-password-val">
+                  </span>
+                </div>
+                <span class="text-danger" id="login-cred-val" style="margin-bottom: 1rem; padding-left: 1rem;">
+                </span>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                  <button class="btn btn-primary" id="login-submit">Login</button>
+                </div>
+              </form>
+            </div>
+            <div class="tab-pane fade costom-pane" id="signup" role="tabpanel" aria-labelledby="signup-tab">
+              <form id="signup-form">
+                {% csrf_token %}
+                <div class="form-floating costom-form">
+                  <input type="text" class="form-control" id="signup-name" placeholder="name" required>
+                  <label for="signup-name">Name</label>
+                  <span class="text-danger" id="signup-name-val">
+                  </span>
+                </div>
+                <div class="form-floating costom-form">
+                  <input type="email" class="form-control" id="signup-email" placeholder="Email" required>
+                  <label for="signup-email">Email Address</label>
+                  <span class="text-danger" id="signup-email-val">
+                  </span>
+                </div>
+                <div class="form-floating costom-form">
+                  <input type="password" class="form-control" id="signup-password" placeholder="Password"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*]).{8,32}" required>
+                  <label for="signup-password">Password</label>
+                  <span class="text-danger" id="signup-password-val">
+                  </span>
+                </div>
+                <div class="form-floating costom-form">
+                  <input type="password" class="form-control" id="signup-confirm-password" placeholder="Password"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*]).{8,32}" required>
+                  <label for="signup-confirm-password">Confirm Password</label>
+                  <span class="text-danger" id="signup-confirm-password-val">
+                  </span>
+                </div>
+                <span class="text-danger" id="signup-cred-val" style="margin-bottom: 1rem; padding-left: 1rem;">
+                </span>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                  <button class="btn btn-primary" id="signup-submit">Signup</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- hear bello -->
+  <form id="save-form">
+    {% csrf_token %}
+    <div id="pass_box" class="">
+      {% if user.is_authenticated %}
+      <div class="form-floating bg-dark" style="width: 75%; box-shadow: 0px 0px 20px -5px;">
+        <input type="text" class="form-control bg-dark text-white" id="name" style=" border: 0;" placeholder="Enter Name">
+        <label for="name">Name</label>
+      </div>
+        <span class="text-danger" id="name-val">
+        </span>
+      {% endif %}
+      <div id="pass-change">
+        <div class="form-floating bg-dark" style="width: 75%; margin: 1rem; display: flex; box-shadow: 0px 0px 20px -5px;">
+          <input type="text" class="form-control bg-dark text-white" id="password" placeholder="Password" style="border: 0;">
+          <label for="name">Password</label>
+          <button id="copy" type="button" class="btn btn-secondary btn-sm input-group-text" style="padding: 1%; padding-bottom: 0;background-color: rgb(202 215 206 / 0%);
+                        border: 0;" type="button">
+            <i class="material-icons">content_copy</i>
+          </button>
+          <button id="generate" type="button" class="btn btn-secondary btn-sm input-group-text" style="padding: 1%; padding-bottom: 0;background-color: rgb(202 215 206 / 0%);
+                        border: 0;" type="button">
+            <i class="material-icons">refresh</i>
+          </button>
+        </div>
+        <div class="customize">
+          <div class="length">
+            <h4 style="margin-right: 1%; color: white;">Length</h4><input style="cursor: pointer;" id="length"
+              type="range" min="8" max="64" value="10" />
+            <input id="display_length" type="number" min="8" max="64" value="10" />
+          </div>
+          <div class="check">
+            <input id="upper" type="checkbox" checked /><b>UpperCase</b>
+          </div>
+          <div class="check">
+            <input id="lower" type="checkbox" checked /><b>LowerCase</b>
+          </div>
+          <div class="check">
+            <input id="symbols" type="checkbox" checked /><b>Symbols</b>
+          </div>
+          <div class="check">
+            <input id="numbers" type="checkbox" checked /><b>Numbers</b>
+          </div>
+        </div>
+      </div>
+      {% if user.is_authenticated %}
+      <div class="d-grid gap-2 col-4 mx-auto">
+        <button type="submit" class="btn btn-primary " style="margin-top: 1rem;" id="save">Save</button>
+      </div>
+      {% endif %}
+    </div>
+  </form>
+
+  <script src="{% static 'generator-f.js'%}"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

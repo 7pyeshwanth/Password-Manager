@@ -108,8 +108,8 @@ document.getElementById("login-form").onsubmit = (e) => {
     },
     success: function (data) {
       if (data.ok == true) {
-        alert("Your account has been logged in successfully")
         window.location = "/home";
+        alert("Your account has been logged in successfully");
       } else {
         $("#login-cred-val").html(data.error);
       }

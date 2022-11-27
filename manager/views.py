@@ -17,20 +17,15 @@ from django.contrib.auth import authenticate, login, logout
 
 def base(request):
   if request.user.is_authenticated:
-    print("u")
     return redirect(dashboard)
   else:
-    print("r")
     return redirect(generator)
 
 
 def home(request):
-  print("Home")
   if request.user.is_authenticated:
-    print("u")
     return redirect(dashboard)
   else:
-    print("r")
     return redirect(generator)
 
 
@@ -43,7 +38,6 @@ def generator(request):
 
 def dashboard(request):
   if request.user.is_authenticated:
-    print("i")
     table = Password_Table.objects.filter(link=request.user)
     passwords = []
     for index, tr in enumerate(table):
@@ -52,7 +46,6 @@ def dashboard(request):
       d["name"] = tr.name
       d["password"] = tr.password
       passwords.append(d)
-    print(passwords)
     data = {}
     data["passwords"] = passwords
     data["dashboard"] = "active"
@@ -110,19 +103,15 @@ def activate(request, uidb64, token):
 
 def login_user(request):
   if request.method == "POST":
-    print("GOTsdfb")
     email = request.POST["email"]
     password = request.POST["password"]
-    print(email, password)
     user = authenticate(email=email, password=password)
     response = {}
     if user is not None:
       response["ok"] = True
-      print("in if")
       login(request, user)
       return HttpResponse(json.dumps(response), content_type='application/json')
     else:
-      print("in else")
       response['ok'] = False
       response["error"] = "Invalid username or password"
       return HttpResponse(json.dumps(response), content_type='application/json')
@@ -145,7 +134,7 @@ def save(request):
 
 def logout_user(request):
   logout(request)
-  return HttpResponse('<script>alert("Successfully logged out");window.location.href = "/home"</script>')
+  return HttpResponse('<script>window.location.href = "/home";alert("Successfully logged out");</script>')
 
 
 def about(request):
@@ -153,3 +142,6 @@ def about(request):
   data["about"] = "active"
   data["title"] = "About | Password Manager"
   return render(request, "about.html", data)
+
+def temp(request):
+  return render(request, "pagenotfound.html")

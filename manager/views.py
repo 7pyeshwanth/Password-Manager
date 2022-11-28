@@ -122,7 +122,7 @@ def save(request):
     name = request.POST["name"]
     password = request.POST["password"]
     response = {}
-    if Password_Table.objects.filter(name=name).exists():
+    if Password_Table.objects.filter(name=name, link=request.user).exists():
       response['ok'] = False
       response["error"] = "Name already exists"
       return HttpResponse(json.dumps(response), content_type='application/json')

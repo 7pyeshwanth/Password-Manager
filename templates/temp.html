@@ -1,35 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <button id="on">LLL</button>
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-  <script>
-    document.getElementById("on").onclick = (e) => {
-      e.preventDefault();
-      console.log("Submitted");
-      $.ajax({
-        type: "POST",
-        url: "/login",
-        data: {
-          email: $("#login-email").val(),
-          password: $("#login-password").val(),
-          csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
-        },
-        success: function (data) {
-          if (data.ok == true) {
-            window.location = location.host;
-          } else {
-            $("#login-cred-val").html(data.error);
-          }
-        },
-      });
-    };
-  </script>
-</body>
-</html>
+<li class="m-0">
+  <button id="tdelete" type="button" class="btn dropdown-item m-0">
+    Delete
+  </button>
+</li>
+<button
+  id="delete-btn"
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#delete-model"
+>
+  Launch demo modal
+</button>
+<div
+  class="modal fade"
+  id="delete-model"
+  tabindex="-1"
+  aria-labelledby="delete-modelLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="loginsigmupLabel">Password Manager</h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="delete-form">
+          {% csrf_token %}
+          <div class="form-floating costom-form">
+            <input
+              type="email"
+              class="form-control"
+              id="delete-email"
+              placeholder="Email"
+              required
+            />
+            <label for="delete-email">Email Address</label>
+            <span class="text-danger" id="delete-email-val"> </span>
+          </div>
+          <div class="form-floating costom-form">
+            <input
+              type="password"
+              class="form-control"
+              id="delete-password"
+              placeholder="Password"
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*]).{8,32}"
+              required
+            />
+            <label for="delete-password">Password</label>
+            <span class="text-danger" id="delete-password-val"> </span>
+          </div>
+          <span
+            class="text-danger"
+            id="delete-cred-val"
+            style="margin-bottom: 1rem; padding-left: 1rem"
+          >
+          </span>
+          <div class="d-grid gap-2 col-6 mx-auto">
+            <button class="btn btn-danger" id="delete-submit">Delete</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+ document.getElementById("tdelete").onclick = () => {
+      document.getElementById("de").click()
+    }

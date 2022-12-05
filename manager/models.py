@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractUser, User
 from manager.user_manager import UserManager
 # Create your models here.
 
-
 class User(AbstractUser):
   username = None
   first_name = None

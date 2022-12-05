@@ -1,0 +1,7 @@
+print(AES.new(key, AES.MODE_CBC).iv)
+# print(salt)
+# print(password)
+# print(message)
+# print(en)
+# d = AES.new(key, AES.MODE_CBC, iv=iv)
+# print(unpad(d.decrypt(en), AES.block_size))

@@ -135,3 +135,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'pasmanager7@gmail.com'
 EMAIL_HOST_PASSWORD = 'ohrhzwawgrabniql'
 EMAIL_PORT = 587
+
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')

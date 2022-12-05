@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style%}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-6" style="background-color: #2a2645;">
+          <form id="Delete-form">
+            {% csrf_token %}
+            <div class="form-floating costom-form">
+              <input type="email" class="form-control" id="Delete-email" placeholder="Email" required />
+              <label for="Delete-email">Email Address</label>
+              <span class="text-danger" id="Delete-email-val">
+              </span>
+            </div>
+            <div class="form-floating costom-form">
+              <input type="password" class="form-control" id="Delete-password" placeholder="Password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*]).{8,32}" required />
+              <label for="Delete-password">Password</label>
+              <span class="text-danger" id="Delete-password-val">
+              </span>
+            </div>
+            <span class="text-danger" id="Delete-cred-val" style="margin-bottom: 1rem; padding-left: 1rem">
+            </span>
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <button class="btn btn-primary" id="Delete-submit">
+                Delete
+              </button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

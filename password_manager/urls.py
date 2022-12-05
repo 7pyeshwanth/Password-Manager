@@ -23,11 +23,9 @@ urlpatterns = [
     path("home", views.home),
     path("generator", views.generator),
     path("dashboard", views.dashboard),
-    path("signup", views.signup),
-    path('activate/<uidb64>/<token>', views.activate, name='activate'),
-    path("login", views.login_user),
-    path("logout", views.logout_user),
     path("about", views.about),
-    path("save", views.save),
-    path("temp", views.temp),
+    path("requests", views.requests),
+    path("delete", views.delete),
+    path('activate/<uidb64>/<token>', views.activate, name='activate'),
+    path("<str:random>", views.home)
 ]

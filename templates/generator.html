@@ -1,13 +1,9 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% load static %} {% block style %}
 
-{% load static %}
 
-{% block style %}
-<link rel="stylesheet" href="{% static 'generator-css.css' %}" />
-<link rel="stylesheet" media="screen and (max-width: 545px)" href="{% static 'phone.css' %}" />
 <style>
   #pass_box {
-    margin: 5% 17%;
+    margin: 0;
     background-color: #2a2645;
     border-radius: 5px;
     display: flex;
@@ -18,12 +14,19 @@
     padding: 4%;
   }
 
+#display_length {
+    width: 15%;
+    text-align: center;
+    margin-left: 3%;
+    border-radius: 7px;
+}
+
   .custom-input {
     background-color: #322e53;
     border: 1px solid #ced4da;
   }
 
-  #password {
+  #password, #name {
     background-color: #322e53;
     border: 0;
     border-color: #5261a2;
@@ -36,7 +39,7 @@
   .custom-div {
     border-radius: 5px;
     background-color: #322e53;
-    width: 75%;
+    width: 100%;
     border: 1px;
     border-color: #5261a2;
   }
@@ -48,76 +51,80 @@
     flex-direction: column;
   }
 </style>
-{% endblock %}
-{% block content %}
-<form id="save-form">
-  {% csrf_token %}
-  <div id="pass_box" class="text-white">
-    {% if user.is_authenticated %}
-    <div class="form-floating custom-div">
-      <input type="text" class="form-control custom-input text-white" id="name" placeholder="Enter Name" />
-      <label for="name">Name</label>
-    </div>
-    <span class="text-danger" id="name-val"> </span>
-    {% endif %}
-    <div id="pass-change">
-      <div class="form-floating custom-div" style="
-          margin: 1rem;
-          display: flex;
-        ">
-        <input type="text" class="form-control text-white" id="password" placeholder="Password" />
-        <label for="name">Password</label>
-        <button id="copy" type="button" class="btn btn-secondary btn-sm input-group-text custom-btn" style="
+{% endblock %} {% block body %}
+<div class="container mt-5">
+  <div class="row d-flex justify-content-center" style="margin: 1rem;">
+    <div class="col-md-6" style="background-color: #2a2645;">
+      <form id="save-form">
+        {% csrf_token %}
+        <div id="pass_box" class="text-white">
+          {% if user.is_authenticated %}
+          <div class="form-floating custom-div" style="margin: 1rem; display: flex">
+            <input type="text" class="form-control text-white" id="name" placeholder="Enter Name" autocomplete="off"/>
+            <label for="name">Name</label>
+          </div>
+          <span class="text-danger" id="name-val"> </span>
+          {% endif %}
+          <div id="pass-change">
+            <div class="form-floating custom-div" style="margin: 1rem; display: flex">
+              <input type="text" class="form-control text-white" id="password" placeholder="Password" />
+              <label for="password">Password</label>
+              <button id="copy" type="button" class="btn btn-secondary btn-sm input-group-text custom-btn" style="
             padding-bottom: 0;
             background-color: rgb(202 215 206 / 0%);
             border: 0;
           " type="button">
-          <i class="material-icons">content_copy</i>
-        </button>
-        <button id="generate" type="button" class="btn btn-secondary btn-sm input-group-text custom-btn" style="
+                <i class="material-icons">content_copy</i>
+              </button>
+              <button id="generate" type="button" class="btn btn-secondary btn-sm input-group-text custom-btn" style="
             padding-bottom: 0;
             background-color: rgb(202 215 206 / 0%);
             border: 0;
           " type="button">
-          <i class="material-icons">refresh</i>
-        </button>
-      </div>
-      <div class="customize">
-        <div class="length">
-          <label for="length">
-            <h4 style="margin-right: 1%;" class="text-white">Length </h4>
-          </label>
-          <input style="cursor: pointer" id="length" type="range" min="8" max="64" value="10" />
-          <input id="display_length" class="custom-input text-white" type="number" min="8" max="64" value="10" />
+                <i class="material-icons">refresh</i>
+              </button>
+            </div>
+            <div id="customize">
+              <div>
+                <label for="length">
+                  <h4 style="margin-right: 1%" class="text-white">Length</h4>
+                </label>
+                <input style="cursor: pointer" id="length" type="range" min="8" max="64" value="10" />
+                <input id="display_length" class="custom-input text-white" type="number" min="8" max="64" value="10" />
+              </div>
+              <div class="form-check form-switch">
+                <input id="upper" type="checkbox" class="form-check-input" checked />
+                <label for="upper" class="form-check-label" ><b>Upper Case</b></label>
+              </div>
+              <div class="form-check form-switch">
+                <input id="lower" type="checkbox" class="form-check-input" checked />
+                <label for="lower" class="form-check-label" ><b>Lower Case</b></label>
+              </div>
+              <div class="form-check form-switch">
+                <input id="symbols" type="checkbox" class="form-check-input" checked />
+                <label for="symbols" class="form-check-label" ><b>Symbols</b></label>
+              </div>
+              <div class="form-check form-switch">
+                <input id="numbers" type="checkbox" class="form-check-input" checked />
+                <label for="numbers" class="form-check-label" ><b>Numbers</b></label>
+              </div>
+            </div>
+          </div>
+          {% if user.is_authenticated %}
+          <div class="d-grid gap-2 col-4 mx-auto">
+            <button type="submit" class="btn btn-primary" style="margin-top: 1rem" id="save">
+              Save
+            </button>
+          </div>
+          {% endif %}
         </div>
-        <div class="check">
-          <input id="upper" type="checkbox" checked >
-          <label for="upper"><b>Upper Case</b></label>
-        </div>
-        <div class="check">
-          <input id="lower" type="checkbox" checked >
-          <label for="lower"><b>Lower Case</b></label>
-        </div>
-        <div class="check">
-          <input id="symbols" type="checkbox" checked >
-          <label for="symbols"><b>Symbols</b></label>
-        </div>
-        <div class="check">
-          <input id="numbers" type="checkbox" checked >
-          <label for="numbers"><b>Numbers</b></label>
-        </div>
-      </div>
+      </form>
     </div>
-    {% if user.is_authenticated %}
-    <div class="d-grid gap-2 col-4 mx-auto">
-      <button type="submit" class="btn btn-primary" style="margin-top: 1rem" id="save">
-        Save
-      </button>
-    </div>
-    {% endif %}
   </div>
-</form>
-{% endblock %}
-{% block script %}
-<script src="{% static 'generator-f.js'%}"></script>
-{% endblock %}
+</div>
+{% endblock %} {% block script %}
+<script src="{% static 'generator.js'%}"></script>
+
+{% if user.is_authenticated %}
+<script src="{% static 'generator-in.js'%}"></script>
+{% endif %} {% endblock %}
